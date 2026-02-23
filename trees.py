@@ -28,6 +28,9 @@ class Node:
 
     # BST Traversals
     def preOrderTraversal(self):
+        if self.leftPointer is not None:
+            print(f"--{self.number}--")
+            self.leftPointer.preOrderTraversal()
         pass
 
     def inOrderTraversal(self):
