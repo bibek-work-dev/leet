@@ -28,24 +28,23 @@ class Node:
 
     # BST Traversals
     def preOrderTraversal(self):
+        print(f"--{self.number}--")
         if self.leftPointer is not None:
-            print(f"--{self.number}--")
             self.leftPointer.preOrderTraversal()
-            if self.rightPointer is not None:
-                print(f"--{self.number} --")
-                self.rightPointer.preOrderTraversal()
+        if self.rightPointer is not None:
+            self.rightPointer.preOrderTraversal()
 
     def inOrderTraversal(self):
+        print(f"--{self.number}--")
         if self.leftPointer is not None:
             self.leftPointer.inOrderTraversal()
-            print(f"--{self.number}--")
-            if self.rightPointer is not None:
-                self.rightPointer.inOrderTraversal()
-            else:
-                print(f"--{self.rightPointer}--")
+        if self.rightPointer is not None:
+            self.rightPointer.inOrderTraversal()
+            # else:
+            #     print(f"--{self.rightPointer}--")
 
-        else:
-            print(f"--{self.number}--")
+        # else:
+        #     print(f"--{self.number}--")
 
     def postOrderTraversal(self):
         pass
