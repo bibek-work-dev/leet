@@ -31,10 +31,21 @@ class Node:
         if self.leftPointer is not None:
             print(f"--{self.number}--")
             self.leftPointer.preOrderTraversal()
-        pass
+            if self.rightPointer is not None:
+                print(f"--{self.number} --")
+                self.rightPointer.preOrderTraversal()
 
     def inOrderTraversal(self):
-        pass
+        if self.leftPointer is not None:
+            self.leftPointer.inOrderTraversal()
+            print(f"--{self.number}--")
+            if self.rightPointer is not None:
+                self.rightPointer.inOrderTraversal()
+            else:
+                print(f"--{self.rightPointer}--")
+
+        else:
+            print(f"--{self.number}--")
 
     def postOrderTraversal(self):
         pass
