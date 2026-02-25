@@ -1,5 +1,6 @@
 # 50, 30, 70, 60, 80, 65
 from typing import Optional, Any
+from collections import deque
 class Node:
     def __init__(self, number: int) -> None:
         self.number = number
@@ -35,26 +36,40 @@ class Node:
             self.rightPointer.preOrderTraversal()
 
     def inOrderTraversal(self):
-        if self.leftPointer is None:
-            print(f"--{self.number}--")
         if self.leftPointer is not None:
             self.leftPointer.inOrderTraversal()
+        print(f"--{self.number}--")
         if self.rightPointer is not None:
-            print(f"--{self.number}--")
-            self.rightPointer.inOrderTraversal()
-                
-
-        
+            self.rightPointer.inOrderTraversal()  
 
     def postOrderTraversal(self):
-        pass
+        if self.leftPointer is not None:
+            self.leftPointer.postOrderTraversal()
+        if self.rightPointer is not None:
+            self.rightPointer.postOrderTraversal()  
+        print(f"--{self.number}--")
 
+    # Since this is BFS, it is done by queue
     def levelOrderTraversal(self):
-        pass
+        queue = deque()
+        queue.append(self)
+        while queue:
+            popped = queue.popleft()
+            print(popped.number)
+            if popped.leftPointer is not None:
+                queue.append(popped.leftPointer)
+            if popped.rightPointer is not None:
+                queue.append(popped.rightPointer)
 
     # Utilities
+    arr: list[dict[str, int]] = []
     def getHeight(self) -> Any:
-        pass
+        if self.leftPointer is not None:
+            return (self.leftPointer.getHeight())
+        if self.rightPointer is not None:
+            return (self.rightPointer.getHeight())
+        if self.leftPointer is None and self.rightPointer is None:
+            return 0
 
     def countNodes(self) -> Any:
         pass
@@ -89,4 +104,11 @@ class Node:
 
 rootNode = Node(10)
 rootNode.insertNode(12)
+rootNode.insertNode(5)
+rootNode.insertNode(3)
+rootNode.insertNode(7)
+rootNode.insertNode(15)
+rootNode.insertNode(13)
+rootNode.insertNode(17)
+print(rootNode.getHeight())
 
