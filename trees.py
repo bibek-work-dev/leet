@@ -22,7 +22,16 @@ class Node:
                 self.leftPointer.insertNode(number=number)
 
     def searchNode(self, number) -> Any:
-        pass
+        if self.number == number:
+            print(f"--The number {number} is found. --")
+            return
+        if (number > self.number and self.rightPointer is None) or (number < self.number and self.leftPointer is None):
+            print(f"--The number {number} is not available--")
+            return
+        if number > self.number and self.rightPointer is not None:
+            self.rightPointer.searchNode(number=number)
+        if number < self.number and self.leftPointer is not None:
+            self.leftPointer.searchNode(number=number)
 
     def deleteNode(self, number):
         pass
@@ -68,16 +77,26 @@ class Node:
         return 1 + max(left_height, right_height)
 
     def countNodes(self) -> Any:
-        pass
-
+        left = self.leftPointer.countNodes() if self.leftPointer else 0
+        right  = self.rightPointer.countNodes() if self.rightPointer else 0
+        return 1 + left + right
+    
     def countLeafNodes(self) -> Any:
-        pass
+        if self.leftPointer is None and self.rightPointer is None:
+            return 1
+        left = self.leftPointer.countLeafNodes() if self.leftPointer else 0
+        right = self.rightPointer.countLeafNodes() if self.rightPointer else 0
+        return left + right
 
     def findMin(self) -> Any:
-        pass
+        if self.leftPointer is None:
+            return self.number
+        return self.leftPointer.findMin()
 
     def findMax(self) -> Any:
-        pass
+        if self.rightPointer is None:
+            return self.number
+        return self.rightPointer.findMax()
 
     def lowestCommonAncestor(self, node1, node2):
         pass
