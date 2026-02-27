@@ -62,14 +62,10 @@ class Node:
                 queue.append(popped.rightPointer)
 
     # Utilities
-    arr: list[dict[str, int]] = []
     def getHeight(self) -> Any:
-        if self.leftPointer is not None:
-            return (self.leftPointer.getHeight())
-        if self.rightPointer is not None:
-            return (self.rightPointer.getHeight())
-        if self.leftPointer is None and self.rightPointer is None:
-            return 0
+        left_height =  self.leftPointer.getHeight() if self.leftPointer else 0
+        right_height = self.rightPointer.getHeight()if self.rightPointer else 0      
+        return 1 + max(left_height, right_height)
 
     def countNodes(self) -> Any:
         pass
@@ -87,7 +83,10 @@ class Node:
         pass
 
     def isBalanced(self) -> Any:
-        pass
+        left_height, left_balanced = self.leftPointer.isBalanced() if self.leftPointer else (0, True)
+        right_height, right_balanced = self.rightPointer.isBalanced() if self.rightPointer else (0, True)
+        balanced = abs(left_height - right_height) <= 1 and left_balanced and right_balanced
+        return (1 + max(left_height, right_height), balanced)
 
     def diameter(self) -> Any:
         pass
