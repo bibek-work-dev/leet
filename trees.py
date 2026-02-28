@@ -9,7 +9,6 @@ class Node:
 
     # BST operations
     def insertNode(self, number):
-
         if number > self.number:
             if self.rightPointer is None:
                 self.rightPointer = Node(number=number)
@@ -64,12 +63,14 @@ class Node:
     # Utilities
     arr: list[dict[str, int]] = []
     def getHeight(self) -> Any:
-        if self.leftPointer is not None:
-            return (self.leftPointer.getHeight())
-        if self.rightPointer is not None:
-            return (self.rightPointer.getHeight())
         if self.leftPointer is None and self.rightPointer is None:
-            return 0
+            return { "node": self.number, "height": 0 }
+        if self.leftPointer is not None:
+            returned =  self.leftPointer.getHeight()
+            return { "node": self.number, "height": None }
+        if self.rightPointer is not None:
+            returned =  self.rightPointer.getHeight()
+            return { "node": self.number, "height": None }
 
     def countNodes(self) -> Any:
         pass
@@ -78,10 +79,24 @@ class Node:
         pass
 
     def findMin(self) -> Any:
-        pass
+        # newSelf = self
+        # while True:     
+        #     if newSelf.leftPointer is not None:
+        #         newSelf = newSelf.leftPointer
+        #         continue
+        #     if newSelf.leftPointer is None:
+        #         print("the smallest is ", newSelf.number)
+        #         return newSelf.number
+        #     break
+        if self.leftPointer is not None:
+            return self.leftPointer.findMin()
+        return self.number
 
     def findMax(self) -> Any:
-        pass
+        if self.rightPointer is not None:
+            return self.rightPointer.findMax()
+        return self.number
+        
 
     def lowestCommonAncestor(self, node1, node2):
         pass
