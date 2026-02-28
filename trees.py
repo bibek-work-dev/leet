@@ -21,7 +21,16 @@ class Node:
                 self.leftPointer.insertNode(number=number)
 
     def searchNode(self, number) -> Any:
-        pass
+        if self.number == number:
+            print(f"--The number {number} is found. --")
+            return
+        if (number > self.number and self.rightPointer is None) or (number < self.number and self.leftPointer is None):
+            print(f"--The number {number} is not available--")
+            return
+        if number > self.number and self.rightPointer is not None:
+            self.rightPointer.searchNode(number=number)
+        if number < self.number and self.leftPointer is not None:
+            self.leftPointer.searchNode(number=number)
 
     def deleteNode(self, number):
         pass
@@ -61,48 +70,41 @@ class Node:
                 queue.append(popped.rightPointer)
 
     # Utilities
-    arr: list[dict[str, int]] = []
     def getHeight(self) -> Any:
-        if self.leftPointer is None and self.rightPointer is None:
-            return { "node": self.number, "height": 0 }
-        if self.leftPointer is not None:
-            returned =  self.leftPointer.getHeight()
-            return { "node": self.number, "height": None }
-        if self.rightPointer is not None:
-            returned =  self.rightPointer.getHeight()
-            return { "node": self.number, "height": None }
+        left_height =  self.leftPointer.getHeight() if self.leftPointer else 0
+        right_height = self.rightPointer.getHeight()if self.rightPointer else 0      
+        return 1 + max(left_height, right_height)
 
     def countNodes(self) -> Any:
-        pass
-
+        left = self.leftPointer.countNodes() if self.leftPointer else 0
+        right  = self.rightPointer.countNodes() if self.rightPointer else 0
+        return 1 + left + right
+    
     def countLeafNodes(self) -> Any:
-        pass
+        if self.leftPointer is None and self.rightPointer is None:
+            return 1
+        left = self.leftPointer.countLeafNodes() if self.leftPointer else 0
+        right = self.rightPointer.countLeafNodes() if self.rightPointer else 0
+        return left + right
 
     def findMin(self) -> Any:
-        # newSelf = self
-        # while True:     
-        #     if newSelf.leftPointer is not None:
-        #         newSelf = newSelf.leftPointer
-        #         continue
-        #     if newSelf.leftPointer is None:
-        #         print("the smallest is ", newSelf.number)
-        #         return newSelf.number
-        #     break
-        if self.leftPointer is not None:
-            return self.leftPointer.findMin()
-        return self.number
+        if self.leftPointer is None:
+            return self.number
+        return self.leftPointer.findMin()
 
     def findMax(self) -> Any:
-        if self.rightPointer is not None:
-            return self.rightPointer.findMax()
-        return self.number
-        
+        if self.rightPointer is None:
+            return self.number
+        return self.rightPointer.findMax()
 
     def lowestCommonAncestor(self, node1, node2):
         pass
 
     def isBalanced(self) -> Any:
-        pass
+        left_height, left_balanced = self.leftPointer.isBalanced() if self.leftPointer else (0, True)
+        right_height, right_balanced = self.rightPointer.isBalanced() if self.rightPointer else (0, True)
+        balanced = abs(left_height - right_height) <= 1 and left_balanced and right_balanced
+        return (1 + max(left_height, right_height), balanced)
 
     def diameter(self) -> Any:
         pass
